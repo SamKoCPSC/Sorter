@@ -1,0 +1,19 @@
+.Sidebar {
+    background-color: rgb(93, 182, 255);
+    /* background-color: rgb(214, 1, 1); */
+    width: 25%;
+    height: 100vh;
+}
+
+.Title {
+    text-align: center;
+    color: rgb(22, 22, 22);
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 7%;
+    left: 12.5%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 40px;
+}
