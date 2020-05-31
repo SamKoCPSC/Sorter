@@ -1,70 +1,50 @@
-.SettingTitle {
+.StatisticsTitle {
     text-align: center;
     color: rgb(22, 22, 22);
     margin: 0;
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
-    top: 35%;
-    left: 10%;
+    top: 53%;
+    left: 9.25%;
     /* transform: translateX(-50%) translateY(-50%); */
     font-size: 20px;
 }
 
-.SpeedSelection {
-    /* text-align-last: center; */
-    color: white;
-    /* margin: 0;
-    padding: 0; */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    position: absolute;
-    top: 40%;
-    left: 12.5%;
-    /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 20px;
-    width: 162px;
-    border-radius: 10px;
-    background-color: rgb(22, 22, 22);
-}
-
-.SpeedLabel {
+.AccessLabel {
     /* text-align: center; */
     color: rgb(22, 22, 22);
     /* margin: 0;
     padding: 0; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
-    top: 40.5%;
+    top: 57.5%;
     left: 4%;
     /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 15px;    
+    font-size: 15px;     
 }
 
-
-.SizeSelection {
-    /* text-align: center; */
-    color: white;
-    /* margin: 0;
-    padding: 0; */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    position: absolute;
-    top: 45%;
-    left: 12.5%;
-    /* transform: font-size: 20px;translateX(-50%) translateY(-50%); */
-    font-size: 20px;
-    width: 162px;
-    border-radius: 10px;
-    background-color: rgb(22, 22, 22);
-}
-
-.SizeLabel {
+.ComparisonLabel {
     /* text-align: center; */
     color: rgb(22, 22, 22);
     /* margin: 0;
     padding: 0; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
-    top: 45.5%;
+    top: 63%;
+    left: 4%;
+    /* transform: translateX(-50%) translateY(-50%); */
+    font-size: 15px;  
+}
+
+.MoveLabel {
+    /* text-align: center; */
+    color: rgb(22, 22, 22);
+    /* margin: 0;
+    padding: 0; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 68.5%;
     left: 4%;
     /* transform: translateX(-50%) translateY(-50%); */
     font-size: 15px;  

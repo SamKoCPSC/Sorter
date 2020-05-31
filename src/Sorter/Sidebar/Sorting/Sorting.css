@@ -22,7 +22,7 @@
     left: 12.5%;
     /* transform: translateX(-50%) translateY(-50%); */
     font-size: 20px;
-    width: 150px;
+    width: 162px;
     border-radius: 10px;
     background-color: rgb(22, 22, 22);
 }
@@ -51,20 +51,20 @@
     left: 12.5%;
     /* transform: translateX(-50%) translateY(-50%); */
     font-size: 20px;
-    width: 150px;
+    width: 162px;
     border-radius: 10px;
     background-color: rgb(22, 22, 22);
 }
 
 .DirectionLabel {
-        /* text-align: center; */
-        color: rgb(22, 22, 22);
-        /* margin: 0;
-        padding: 0; */
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        position: absolute;
-        top: 27.5%;
-        left: 4%;
-        /* transform: translateX(-50%) translateY(-50%); */
-        font-size: 15px;
+    /* text-align: center; */
+    color: rgb(22, 22, 22);
+    /* margin: 0;
+    padding: 0; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 27.5%;
+    left: 4%;
+    /* transform: translateX(-50%) translateY(-50%); */
+    font-size: 15px;
 }

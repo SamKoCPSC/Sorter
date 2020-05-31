@@ -1,0 +1,50 @@
+button {
+    color: white;
+    background-color: rgb(22, 22, 22);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.Shuffle {
+    position: absolute;
+    top: 77%;
+    left: 2%;
+    width: 150px;
+}
+
+.Sort {
+    position: absolute;
+    top: 77%;
+    left: 13%;
+    width: 150px;
+}
+
+.Randomize {
+    position: absolute;
+    top: 82%;
+    left: 7.5%;
+    width: 150px;
+}
+
+.About {
+    position: absolute;
+    top: 92%;
+    left: 2%;
+    width: 100px;
+}
+
+.Help {
+    position: absolute;
+    top: 92%;
+    left: 9%;
+    width: 100px;
+}
+
+.Info {
+    position: absolute;
+    top: 92%;
+    left: 16%;
+    width: 100px;
+}
