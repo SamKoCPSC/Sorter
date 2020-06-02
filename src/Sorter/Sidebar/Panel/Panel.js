@@ -5,7 +5,7 @@ import './Panel.css';
 class Panel extends Component { 
     handleShuffle = () => {
         this.props.shuffle();
-        this.handleShuffleHelper(1, 10);
+        // this.handleShuffleHelper(1, 10);
     }
 
     handleShuffleHelper = (curr, max) => {

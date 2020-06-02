@@ -4,7 +4,7 @@ import './Sorting.css';
 
 class Sorting extends Component { 
     handleDirectionChange = (e) => {
-        if(e.target.value === "Ascending") {
+        if(e.target.value === "Ascend") {
             this.props.ascend();
         } else {
             this.props.descend();
@@ -23,6 +23,9 @@ class Sorting extends Component {
             <select className = "SortingSelection" onChange = {this.handleSortChange}>
                 <option>Bubble Sort</option>
                 <option>Selection Sort</option>
+                <option>Insertion Sort</option>
+                <option>Shell Sort</option>
+                <option>Merge Sort</option>
             </select>
             <label className = "DirectionLabel">Direction</label>
             <select className = "DirectionSelection" onChange = {this.handleDirectionChange} defaultValue = 'Ascend'>
