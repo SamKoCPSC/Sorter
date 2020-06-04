@@ -154,7 +154,7 @@ class Sorter extends Component {
         width: indexes[index].props.data.width,
         height: `${newHeight}%`,
         color: indexes[index].props.data.color,
-        value: indexes[index].props.data.value,
+        value: newHeight,
       }
       indexes[index] = <Index data = {newData}></Index>
     }
@@ -174,6 +174,7 @@ class Sorter extends Component {
     sort = () => {
       if(this.state.sort === "Bubble Sort") {
         this.bubbleSort();
+        // this.sorted();
       } else if(this.state.sort === "Selection Sort") {
         this.selectionSort();
       } else if(this.state.sort === "Insertion Sort") {
@@ -182,26 +183,28 @@ class Sorter extends Component {
         this.shellSort();
       } else if(this.state.sort === "Merge Sort") {
         this.mergeSort();
+      } else if(this.state.sort === "Quick Sort") {
+        this.quickSort();
       }
     }
 
-    sorted = () => {
+    sorted = (currTime) => {
+      // console.log("called");
       let timeOut = 0;
       for(let i = 0; i < indexes.length; i++) {
-        console.log(120*this.state.speed*timeOut);
-        setTimeout(() => {
-          this.changeColor(i, `rgb(30, 255, 0)`) ;
+        setTimeout((index) => {
+          this.changeColor(index, `rgb(30, 255, 0)`) ;
           this.setState({});
-        }, (2000/this.state.size)*timeOut);
+        }, (700/this.state.size)*timeOut+currTime, i);
         timeOut++;
       }
-      setTimeout(() => {
-        if(this.state.direction === "Ascend") {
-          this.ascend();
-        } else {
-          this.descend();
-        }
-      },(2000/this.state.size)*timeOut+1500);
+      for(let i = 0; i < indexes.length; i++) {
+        setTimeout((index) => {
+          this.changeColor(index, `rgb(93, 182, 255)`) ;
+          this.setState({});
+        }, (700/this.state.size)*timeOut+currTime, i);
+        timeOut++;
+      }
     }
 
     bubbleSort = () => {
@@ -227,12 +230,13 @@ class Sorter extends Component {
               this.changeColor(j, `rgb(93, 182, 255)`);
               this.changeColor(j+1, `rgb(93, 182, 255)`);
               this.setState({});
+              if(i === indexes.length - 1 && j ===  indexes.length - 2) this.sorted();
             }, 120*this.state.speed)
           }, 120*timeOut*this.state.speed);
           timeOut++;
         }
       }
-      
+      this.sorted(120*timeOut*this.state.speed+120);
     }
 
     selectionSort = () => {
@@ -276,6 +280,7 @@ class Sorter extends Component {
           timeOut++;
         }
       }
+      this.sorted(120*timeOut*this.state.speed+120);
     }
 
     insertionSort = () => {
@@ -323,6 +328,7 @@ class Sorter extends Component {
           timeOut++;
         }
       }
+      this.sorted(120*timeOut*this.state.speed+120);
     }
 
     shellSort = () => {
@@ -376,6 +382,7 @@ class Sorter extends Component {
           }
         }
       }
+      this.sorted(120*timeOut*this.state.speed+120);
     }
 
     mergeSort = () => {
@@ -477,9 +484,115 @@ class Sorter extends Component {
           }
         }
       }
+      this.sorted(40*timeOut*this.state.speed+120);
     }
 
-    
+    quickSort = () => {
+      let timeOut = 0;
+      let temp = this.copyArrayValues();
+      console.log(temp);
+      let stack = [];
+      let top = -1;
+      stack[++top] = 0;
+      stack[++top] = indexes.length-1;
+  
+
+      while(top >= 0) {
+        let h = stack[top--];
+        let l = stack[top--];
+        let randomIndex = Math.floor(Math.random() * (Math.floor(h) - Math.ceil(l) + 1)) + Math.ceil(l)
+        let pivot = temp[randomIndex];
+        setTimeout((index) => {
+          this.changeColor(index, `rgb(255, 216, 89)`);
+          this.setState({})
+        }, 40*this.state.speed*timeOut, randomIndex);
+        timeOut++;
+        setTimeout((index1, index2) => {
+          this.swap(index1, index2);
+          this.setState({accesses: this.state.accesses + 2, moves: this.state.moves + 2})
+        }, 40*this.state.speed*timeOut, randomIndex, h);
+        timeOut++;
+        let x = temp[randomIndex];
+        temp[randomIndex] = temp[h];
+        temp[h] = x;
+        let i = l-1;
+        setTimeout((index) => {
+          this.changeColor(index, `rgb(106, 211, 65)`);
+          this.setState({accesses: this.state.accesses + 3, comparisons: this.state.comparisons + 1, moves: this.state.moves + 2});
+        }, 40*this.state.speed*timeOut, i+1);
+        timeOut++;
+        for(let j = l; j <= h-1; j++) {
+          setTimeout((index) => {
+            this.changeColor(index, `rgb(255, 127, 77)`);
+            this.setState({accesses: this.state.accesses + 1});
+          }, 40*this.state.speed*timeOut, j) 
+          timeOut++;
+          if(temp[j] <= pivot) {
+            i++;
+            setTimeout((index1, index2) => {
+              this.changeColor(index1, `rgb(255, 57, 57)`);
+              this.changeColor(index2, `rgb(255, 57, 57)`);
+              this.setState({});
+            }, 40*this.state.speed*timeOut, i, j);
+            timeOut++;
+            setTimeout((index1, index2) => {
+              this.swap(index1, index2);
+              this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1, moves: this.state.moves + 2});
+            }, 40*this.state.speed*timeOut, i, j);
+            timeOut++;
+            setTimeout((index1, index2) => {
+              this.changeColor(index1+1, `rgb(106, 211, 65)`);
+              this.changeColor(index1, `rgb(93, 182, 255)`);
+              this.changeColor(index2, `rgb(93, 182, 255)`);
+              this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1, moves: this.state.moves + 2});
+            }, 40*this.state.speed*timeOut, i, j);
+            timeOut++;
+            let t = temp[i];
+            temp[i] = temp[j];
+            temp[j] = t;
+          } else {
+            setTimeout((index) => {
+              this.changeColor(index, `rgb(106, 211, 65)`);
+              this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1});
+            }, 40*this.state.speed*timeOut, i+1);
+            timeOut++;
+          }
+          setTimeout((index) => {
+            // if(i === l-1) this.changeColor(i+1, `rgb(106, 211, 65)`)
+            this.changeColor(index, `rgb(93, 182, 255)`);
+            this.setState({});
+          }, 40*this.state.speed*timeOut, j) 
+          timeOut++;
+        }
+        setTimeout((index1, index2) => {
+          this.swap(index1, index2);
+          this.setState({accesses: this.state.accesses + 2, moves: this.state.moves + 2})
+        }, 40*this.state.speed*timeOut, i+1, h)
+        timeOut++;
+        setTimeout((index1, index2) => {
+          this.changeColor(i+1, `rgb(93, 182, 255)`);
+          this.changeColor(h, `rgb(93, 182, 255)`);
+        }, 40*this.state.speed*timeOut, i+1, h);
+        setTimeout((index) => {
+          this.changeColor(index, `rgb(93, 182, 255)`);
+          this.setState({})
+        }, 40*this.state.speed*timeOut, randomIndex);
+        timeOut++;
+        let t = temp[i+1];
+        temp[i+1] = temp[h];
+        temp[h] = t;
+        let p = i+1;
+        if(p+1 < h) {
+          stack[++top] = p + 1;
+          stack[++top] = h;
+        }
+        if(p-1 > l) {
+          stack[++top] = l;
+          stack[++top] = p - 1;
+        }
+      }
+      this.sorted(40*timeOut*this.state.speed+120);
+    }
 
     render() {
       return(
