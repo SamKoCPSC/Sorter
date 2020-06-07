@@ -12,10 +12,11 @@ class Sorter extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        size: 10,
         direction: 'Ascend',
         sort: "Bubble Sort",
+        size: 50,
         speed: 1,
+        distribution: "Randomly Sorted",
         accesses: 0,
         comparisons: 0,
         moves: 0,
@@ -24,11 +25,11 @@ class Sorter extends Component {
     }
 
     componentDidMount() {
-      this.ascend();
+      this.ascend(this.state.size);
     }
 
-    ascend = () => {
-      let size = this.state.size;
+    ascend = (x) => {
+      let size = x;
       indexes.length = 0;
       for(let i = 0; i < size; i++) {
           indexes[i] = (<Index 
@@ -45,8 +46,8 @@ class Sorter extends Component {
       this.setState({direction: "Ascend", accesses: 0, comparisons: 0, moves: 0});
     } 
 
-    descend = () => {
-      let size = this.state.size;
+    descend = (x) => {
+      let size = x;
       indexes.length = 0;
       for(let i = 0; i < size; i++) {
           indexes[i] = (<Index 
@@ -64,8 +65,32 @@ class Sorter extends Component {
   }
 
     shuffle = () => {
-      for(let i = 0; i < indexes.length*3; i++) {
-        this.swap(Math.floor(Math.random() * Math.floor(indexes.length)), Math.floor(Math.random() * Math.floor(indexes.length)));
+      if(this.state.distribution === "Randomly Sorted") {
+        for(let i = 0; i < indexes.length*3; i++) {
+          this.swap(Math.floor(Math.random() * Math.floor(indexes.length)), Math.floor(Math.random() * Math.floor(indexes.length)));
+        }
+      } else if(this.state.distribution === "Nearly Sorted") {
+        for(let i = 0; i < indexes.length-3; i+=4){
+          for(let j = 0; j < 2; j++) {
+            let rand1 = Math.floor(Math.random() * (Math.floor(i+3) - Math.ceil(i) + 1)) + Math.ceil(i);
+            let rand2 = Math.floor(Math.random() * (Math.floor(i+3) - Math.ceil(i) + 1)) + Math.ceil(i);
+            this.swap(rand1, rand2);
+          }
+        }
+      } else if(this.state.distribution === "Partially Sorted") {
+        for(let i = 0; i < indexes.length*3; i++) {
+          let rand1 = Math.floor(Math.random() * (Math.floor(indexes.length-1) - Math.ceil(Math.floor(indexes.length/2)) + 1)) + Math.ceil(Math.floor(indexes.length/2));
+          let rand2 = Math.floor(Math.random() * (Math.floor(indexes.length-1) - Math.ceil(Math.floor(indexes.length/2)) + 1)) + Math.ceil(Math.floor(indexes.length/2));
+          this.swap(rand1, rand2);
+        }
+      } else if(this.state.distribution === "Periodically Sorted") {
+        for(let i = 0; i < indexes.length/4; i++) {
+          this.swap(Math.floor(Math.random() * Math.floor(indexes.length)), Math.floor(Math.random() * Math.floor(indexes.length)));
+        }
+      } else if(this.state.distribution === "Reverse Sorted") {
+        for(let i = 0; i < Math.floor(indexes.length/2); i++) {
+          this.swap(i, indexes.length-1-i);
+        }
       }
       this.setState({accesses: 0, comparisons: 0, moves: 0});
     }
@@ -75,9 +100,9 @@ class Sorter extends Component {
       let index = Math.floor(Math.random() * (Math.floor(1) - Math.ceil(0) + 1)) + Math.ceil(0);
       let randomDirection = directions[index];
       if(randomDirection === "Ascend")
-        this.ascend();
+        this.ascend(this.state.size);
       else
-        this.descend();
+        this.descend(this.state.size);
       let randomSize = Math.floor(Math.random() * (Math.floor(250) - Math.ceil(1) + 1)) + Math.ceil(1);
       this.sizeChange(randomSize);
     }
@@ -105,13 +130,21 @@ class Sorter extends Component {
     }
 
     sizeChange = (newSize) => {
-      this.setState({size: newSize, accesses: 0, comparisons: 0, moves: 0}, () => {
-        if(this.state.direction === "Ascend") {
-          this.ascend();
+      this.setState({size: newSize, accesses: 0, comparisons: 0, moves: 0});
+      if(this.state.direction === "Ascend") {
+          this.ascend(newSize);
       } else {
-          this.descend();
+          this.descend(newSize);
       }
-      })
+    }
+
+    distributionChange = (newDis) => {
+      this.setState({distribution: newDis, accesses: 0, comparisons: 0, moves: 0});
+      if(this.state.direction === "Ascend") {
+        this.ascend(this.state.size);
+      } else {
+        this.descend(this.state.size);
+      }
     }
 
     swap = (index1, index2) => {
@@ -174,7 +207,6 @@ class Sorter extends Component {
     sort = () => {
       if(this.state.sort === "Bubble Sort") {
         this.bubbleSort();
-        // this.sorted();
       } else if(this.state.sort === "Selection Sort") {
         this.selectionSort();
       } else if(this.state.sort === "Insertion Sort") {
@@ -185,6 +217,8 @@ class Sorter extends Component {
         this.mergeSort();
       } else if(this.state.sort === "Quick Sort") {
         this.quickSort();
+      } else if(this.state.sort === "Heap Sort") {
+        this.heapSort();
       }
     }
 
@@ -490,7 +524,6 @@ class Sorter extends Component {
     quickSort = () => {
       let timeOut = 0;
       let temp = this.copyArrayValues();
-      console.log(temp);
       let stack = [];
       let top = -1;
       stack[++top] = 0;
@@ -594,6 +627,100 @@ class Sorter extends Component {
       this.sorted(40*timeOut*this.state.speed+120);
     }
 
+    heapSort = () => {
+      // let arr = [];
+      // arr[0] = 1;
+      // console.log(arr[0] > arr[1] || arr[1] == null);
+      // console.log(arr[1]);
+      let timeOut = 0;
+      let temp = this.copyArrayValues();
+      for(let i = Math.floor(indexes.length/2); i >= 0; i--) {
+        if(temp[2*i+2] == null && temp[2*i+1] == null) continue;
+        let maxChild = temp[2*i+1] > temp[2*i+2] || temp[2*i+2] == null ? 1 : 2;
+        setTimeout(() => {
+          this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1});
+        }, 40*this.state.speed*timeOut);
+        timeOut++;
+        if(temp[i] < temp[2*i+maxChild]) {
+          let j = i;
+          while(temp[j] < temp[2*j+maxChild]) {
+            setTimeout((index1, index2) => {
+              this.changeColor(index1, `rgb(255, 57, 57)`);
+              this.changeColor(index2, `rgb(255, 57, 57)`);
+              this.setState({})
+            }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+            timeOut++;
+            setTimeout((index1, index2) => {
+              this.swap(index1, index2);
+              this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1, moves: this.state.moves + 2})
+            }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+            timeOut++;
+            setTimeout((index1, index2) => {
+              this.changeColor(index1, `rgb(93, 182, 255)`);
+              this.changeColor(index2, `rgb(93, 182, 255)`);
+              this.setState({})
+            }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+            timeOut++;
+            let t = temp[j];
+            temp[j] = temp[2*j+maxChild];
+            temp[2*j+maxChild] = t;
+            j = 2*j+maxChild
+            maxChild = temp[2*j+1] > temp[2*j+2] || temp[2*j+2] == null ? 1 : 2;
+          }
+        }
+      }
+      for (let i = indexes.length - 1; i > 0; i--) {
+        setTimeout((index1, index2) => {
+          this.changeColor(index1, `rgb(255, 57, 57)`);
+          this.changeColor(index2, `rgb(255, 57, 57)`);
+          this.setState({})
+        }, 40*this.state.speed*timeOut, 0, i);
+        timeOut++;
+        setTimeout((index1, index2) => {
+          this.swap(index1, index2);
+          this.setState({accesses: this.state.accesses + 2, moves: this.state.moves + 2})
+        }, 40*this.state.speed*timeOut, 0, i);
+        timeOut++;
+        setTimeout((index1, index2) => {
+          this.changeColor(index1, `rgb(93, 182, 255)`);
+          this.changeColor(index2, `rgb(93, 182, 255)`);
+          this.setState({})
+        }, 40*this.state.speed*timeOut, 0, i);
+        timeOut++;
+        let t = temp[i];
+        temp[i] = temp[0];
+        temp[0] = t;
+        let j = 0;
+        if(temp[1] == null || temp[2] == null) break;
+        let maxChild = temp[1] > temp[2] || i === 2 ? 1 : 2;
+        while(temp[j] < temp[2*j+maxChild] && 2*j+maxChild < i) {
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(255, 57, 57)`);
+            this.changeColor(index2, `rgb(255, 57, 57)`);
+            this.setState({})
+          }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+          timeOut++;
+          setTimeout((index1, index2) => {
+            this.swap(index1, index2);
+            this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 1, moves: this.state.moves + 2})
+          }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+          timeOut++;
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(93, 182, 255)`);
+            this.changeColor(index2, `rgb(93, 182, 255)`);
+            this.setState({})
+          }, 40*this.state.speed*timeOut, j, 2*j+maxChild);
+          timeOut++;
+          let t = temp[j];
+          temp[j] = temp[2*j+maxChild];
+          temp[2*j+maxChild] = t;
+          j = 2*j+maxChild
+          maxChild = temp[2*j+1] > temp[2*j+2] || temp[2*j+2] == null? 1 : 2;
+        }
+      }
+      this.sorted(40*timeOut*this.state.speed+120);
+    }
+
     render() {
       return(
         <div className = 'Sorter'>
@@ -605,6 +732,7 @@ class Sorter extends Component {
                 randomize = {this.randomize}
                 speedChange = {this.speedChange}
                 sortChange = {this.sortChange}
+                distributionChange = {this.distributionChange}
                 sort = {this.sort}
                 accesses = {this.state.accesses}
                 comparisons = {this.state.comparisons}

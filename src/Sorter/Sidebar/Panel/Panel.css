@@ -3,48 +3,48 @@ button {
     background-color: rgb(22, 22, 22);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 1.2vw;
     text-align: center;
 }
 
 .Shuffle {
     position: absolute;
     top: 77%;
-    left: 2%;
-    width: 150px;
+    left: 1.5%;
+    width: 7%;
 }
 
 .Sort {
     position: absolute;
     top: 77%;
-    left: 13%;
-    width: 150px;
+    left: 9.5%;
+    width: 7%;
 }
 
 .Randomize {
     position: absolute;
     top: 82%;
-    left: 7.5%;
-    width: 150px;
+    left: 4.5%;
+    width: 9%;
 }
 
 .About {
     position: absolute;
     top: 92%;
-    left: 2%;
-    width: 100px;
+    left: 0.5%;
+    width: 5%;
 }
 
 .Help {
     position: absolute;
     top: 92%;
-    left: 9%;
-    width: 100px;
+    left: 6.5%;
+    width: 5%;
 }
 
 .Info {
     position: absolute;
     top: 92%;
-    left: 16%;
-    width: 100px;
+    left: 12.5%;
+    width: 5%;
 }

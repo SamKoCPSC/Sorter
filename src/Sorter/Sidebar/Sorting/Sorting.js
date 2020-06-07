@@ -27,6 +27,7 @@ class Sorting extends Component {
                 <option>Shell Sort</option>
                 <option>Merge Sort</option>
                 <option>Quick Sort</option>
+                <option>Heap Sort</option>
             </select>
             <label className = "DirectionLabel">Direction</label>
             <select className = "DirectionSelection" onChange = {this.handleDirectionChange} defaultValue = 'Ascend'>

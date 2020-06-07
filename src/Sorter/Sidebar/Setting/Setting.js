@@ -13,6 +13,10 @@ class Setting extends Component {
         }
     }
 
+    handleDistributionChange = (e) => {
+        this.props.distributionChange(e.target.value);
+    }
+
     render() {
         return (
             <>
@@ -40,17 +44,15 @@ class Setting extends Component {
                 <option>1000%</option>
             </select>
             <label className = "SizeLabel">Size</label>
-            {/* <select className = "SizeSelection" onChange = {this.handleSizeChange}>
-                <option>4</option>
-                <option>8</option>
-                <option>16</option>
-                <option>32</option>
-                <option>64</option>
-                <option>128</option>
-                <option>256</option>
-                <option>512</option>
-            </select> */}
-            <input className = "SizeSelection" defaultValue = '10' onKeyDown = {this.handleSizeChange}></input>
+            <input className = "SizeSelection" defaultValue = '50' onKeyDown = {this.handleSizeChange}></input>
+            <label className = "DistributionLabel">Distribution</label>
+            <select className = "DistrubutionSelection" defaultValue = "Randomly Sorted" onChange = {this.handleDistributionChange}>
+                <option>Randomly Sorted</option>
+                <option>Nearly Sorted</option>
+                <option>Partially Sorted</option>
+                <option>Periodically Sorted</option>
+                <option>Reverse Sorted</option>
+            </select>
             </>
         );
     }

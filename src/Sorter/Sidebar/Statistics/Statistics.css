@@ -5,10 +5,10 @@
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
-    top: 53%;
-    left: 9.25%;
+    top: 53.5%;
+    left: 5.5%;
     /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 20px;
+    font-size: 1.3vw;
 }
 
 .AccessLabel {
@@ -19,9 +19,9 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 57.5%;
-    left: 4%;
+    left: 1%;
     /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 15px;     
+    font-size: 1vw;      
 }
 
 .ComparisonLabel {
@@ -32,9 +32,9 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 63%;
-    left: 4%;
+    left: 1%;
     /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 15px;  
+    font-size: 1vw;  
 }
 
 .MoveLabel {
@@ -45,7 +45,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 68.5%;
-    left: 4%;
+    left: 1%;
     /* transform: translateX(-50%) translateY(-50%); */
-    font-size: 15px;  
+    font-size: 1vw;  
 }
