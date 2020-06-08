@@ -1,7 +1,8 @@
 /* eslint-disable no-loop-func */
 import React, {Component} from 'react';
 import Sidebar from './Sidebar/Sidebar';
-import Index from './Array/Index/Index';
+import Index from './Index/Index';
+import Modal from './Modal/Modal';
 
 import './Sorter.css'
 
@@ -20,6 +21,9 @@ class Sorter extends Component {
         accesses: 0,
         comparisons: 0,
         moves: 0,
+        about: "none",
+        help: "none",
+        info: "none",
       };
 
     }
@@ -207,6 +211,10 @@ class Sorter extends Component {
     sort = () => {
       if(this.state.sort === "Bubble Sort") {
         this.bubbleSort();
+      } else if(this.state.sort === "Cocktail Sort") {
+        this.cocktailSort();
+      } else if(this.state.sort === "Comb Sort") {
+        this.combSort();
       } else if(this.state.sort === "Selection Sort") {
         this.selectionSort();
       } else if(this.state.sort === "Insertion Sort") {
@@ -271,6 +279,120 @@ class Sorter extends Component {
         }
       }
       this.sorted(120*timeOut*this.state.speed+120);
+    }
+
+    cocktailSort  = () => {
+      let timeOut = 0;
+      let temp = this.copyArrayValues();
+      let sorted = false;
+      let left = 0;
+      let right = indexes.length - 1; 
+      while(sorted === false) {
+        sorted = true;
+        for(let i = left; i < right; i++) {
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(255, 57, 57)`);
+            this.changeColor(index2, `rgb(255, 57, 57)`);
+            this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 2});
+          }, 40*this.state.speed*timeOut, i, i+1);
+          timeOut++;
+          if(temp[i] > temp[i+1]) {
+            setTimeout((index1, index2) => {
+              this.swap(index1, index2);
+              this.setState({moves: this.state.moves + 2});
+            }, 40*this.state.speed*timeOut, i, i+1);
+            timeOut++;
+            let t = temp[i];
+            temp[i] = temp[i+1];
+            temp[i+1] = t;
+            sorted = false;
+          } else {
+            timeOut++;
+          }
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(93, 182, 255)`);
+            this.changeColor(index2, `rgb(93, 182, 255)`);
+            this.setState({});
+          }, 40*this.state.speed*timeOut, i, i+1);
+          timeOut++;
+        }
+        right--;
+        if(sorted === true)
+          break;
+        sorted = true;
+        for(let i = right; i > left; i--) {
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(255, 57, 57)`);
+            this.changeColor(index2, `rgb(255, 57, 57)`);
+            this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 2});
+          }, 40*this.state.speed*timeOut, i, i-1);
+          timeOut++;
+          if(temp[i] < temp[i-1]) {
+            setTimeout((index1, index2) => {
+              this.swap(index1, index2);
+              this.setState({moves: this.state.moves + 2});
+            }, 40*this.state.speed*timeOut, i, i-1);
+            timeOut++;
+            let t = temp[i];
+            temp[i] = temp[i-1];
+            temp[i-1] = t;
+            sorted = false;
+          } else {
+            timeOut++;
+          }
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(93, 182, 255)`);
+            this.changeColor(index2, `rgb(93, 182, 255)`);
+            this.setState({});
+          }, 40*this.state.speed*timeOut, i, i-1);
+          timeOut++;
+        }
+        left++;
+      }
+    }
+
+    combSort = () => {
+      let timeOut = 0;
+      let temp = this.copyArrayValues();
+      let gap = indexes.length;
+      let sorted = false;
+      while(sorted === false) {
+        gap = Math.floor(gap/1.3);
+        if(gap <= 1) {
+          gap = 1;
+          sorted = true;
+        }
+        let i = 0;
+        while(i+gap < indexes.length) {
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(255, 57, 57)`);
+            this.changeColor(index2, `rgb(255, 57, 57)`);
+            this.setState({accesses: this.state.accesses + 2, comparisons: this.state.comparisons + 2});
+          }, 40*this.state.speed*timeOut, i, i+gap);
+          timeOut++;
+          if(temp[i] > temp[i+gap]) {
+            setTimeout((index1, index2) => {
+              this.swap(index1, index2);
+              this.setState({moves: this.state.moves + 2});
+            }, 40*this.state.speed*timeOut, i, i+gap);
+            timeOut++;
+            let t = temp[i];
+            temp[i] = temp[i+gap];
+            temp[i+gap] = t;
+            sorted = false;
+          } else {
+            timeOut++;
+          }
+          setTimeout((index1, index2) => {
+            this.changeColor(index1, `rgb(93, 182, 255)`);
+            this.changeColor(index2, `rgb(93, 182, 255)`);
+            this.setState({});
+          }, 40*this.state.speed*timeOut, i, i+gap);
+          timeOut++;
+          i++;
+        }
+      }
+      this.sorted(40*timeOut*this.state.speed+120);
     }
 
     selectionSort = () => {
@@ -591,7 +713,6 @@ class Sorter extends Component {
             timeOut++;
           }
           setTimeout((index) => {
-            // if(i === l-1) this.changeColor(i+1, `rgb(106, 211, 65)`)
             this.changeColor(index, `rgb(93, 182, 255)`);
             this.setState({});
           }, 40*this.state.speed*timeOut, j) 
@@ -628,10 +749,6 @@ class Sorter extends Component {
     }
 
     heapSort = () => {
-      // let arr = [];
-      // arr[0] = 1;
-      // console.log(arr[0] > arr[1] || arr[1] == null);
-      // console.log(arr[1]);
       let timeOut = 0;
       let temp = this.copyArrayValues();
       for(let i = Math.floor(indexes.length/2); i >= 0; i--) {
@@ -721,7 +838,28 @@ class Sorter extends Component {
       this.sorted(40*timeOut*this.state.speed+120);
     }
 
+    handleModals = (isOpen, button) => {
+      if(isOpen) {
+        if(button === "About") {
+          this.setState({about: "block"});
+        } if(button === "Help") {
+          this.setState({help: "block"});
+        } if(button === "Info") {
+          this.setState({info: "block"});
+        }
+      } else {
+        if(button === "About") {
+          this.setState({about: "none"});
+        } if(button === "Help") {
+          this.setState({help: "none"});
+        } if(button === "Info") {
+          this.setState({info: "none"});
+        }
+      }
+    }
+
     render() {
+
       return(
         <div className = 'Sorter'>
             <Sidebar 
@@ -734,6 +872,7 @@ class Sorter extends Component {
                 sortChange = {this.sortChange}
                 distributionChange = {this.distributionChange}
                 sort = {this.sort}
+                handleModals = {this.handleModals}
                 accesses = {this.state.accesses}
                 comparisons = {this.state.comparisons}
                 moves = {this.state.moves}
@@ -741,6 +880,10 @@ class Sorter extends Component {
             <div className = "Array">
                 {indexes}
             </div>
+            <Modal display = {this.state.about} header = "About" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
+            <Modal display = {this.state.help} header = "Help" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
+            <Modal display = {this.state.info} header = "Info" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
+            {/* <Modal className = "ModalContainer"></Modal> */}
             {/* <Array 
                 arrayChange = {this.arrayChange}
                 

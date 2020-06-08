@@ -22,6 +22,8 @@ class Sorting extends Component {
             <label className = "AlgorithmLabel">Algorithm</label>
             <select className = "SortingSelection" onChange = {this.handleSortChange}>
                 <option>Bubble Sort</option>
+                <option>Cocktail Sort</option>
+                <option>Comb Sort</option>
                 <option>Selection Sort</option>
                 <option>Insertion Sort</option>
                 <option>Shell Sort</option>

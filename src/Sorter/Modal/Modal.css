@@ -1,0 +1,30 @@
+.page {
+    /* display: block; */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 70%;
+    border-radius: 10px;
+}
+
+.close {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+
+.close:hover,.close:focus{
+    color: #000;
+    cursor: pointer;
+}

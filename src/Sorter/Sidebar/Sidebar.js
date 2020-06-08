@@ -18,7 +18,7 @@ class Sidebar extends Component {
                 <Sorting direction = {this.props.direction} ascend = {this.props.ascend} descend = {this.props.descend} sortChange = {this.props.sortChange}></Sorting>
                 <Setting size = {this.props.size} sizeChange = {this.props.sizeChange} speedChange = {this.props.speedChange} distributionChange = {this.props.distributionChange}></Setting>
                 <Statistics accesses = {this.props.accesses} comparisons = {this.props.comparisons} moves = {this.props.moves}></Statistics>
-                <Panel shuffle = {this.props.shuffle} sort = {this.props.sort} randomize = {this.props.randomize}></Panel>
+                <Panel shuffle = {this.props.shuffle} sort = {this.props.sort} randomize = {this.props.randomize} handleModals = {this.props.handleModals}></Panel>
                 <svg height="100%" width="100%">
                 <line x1="0%" y1="15%" x2="100%" y2="15%" stroke="rgb(22, 22, 22)" strokeWidth = "2" />
                 <line x1="0%" y1="32.5%" x2="100%" y2="32.5%" stroke="rgb(22, 22, 22)" strokeWidth = "2" />

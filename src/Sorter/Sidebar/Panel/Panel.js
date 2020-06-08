@@ -26,15 +26,20 @@ class Panel extends Component {
         this.props.randomize();
     }
 
+    handleModals = (e) => {
+        console.log("click")
+        this.props.handleModals(true, e.target.className)
+    }
+
     render() {
         return (
             <>
                 <button className = "Shuffle" onClick = {this.handleShuffle}>Shuffle</button>
                 <button className = "Sort" onClick = {this.handleSort}>Sort</button>
                 <button className = "Randomize" onClick = {this.handleRandomize}>Randomize</button>
-                <button className = "About">About</button>
-                <button className = "Help">Help</button>
-                <button className = "Info">Info</button>
+                <button className = "About" onClick = {this.handleModals}>About</button>
+                <button className = "Help" onClick = {this.handleModals}>Help</button>
+                <button className = "Info" onClick = {this.handleModals}>Info</button>
             </>
         );
     }
