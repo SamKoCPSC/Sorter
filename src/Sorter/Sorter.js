@@ -859,7 +859,6 @@ class Sorter extends Component {
     }
 
     render() {
-
       return(
         <div className = 'Sorter'>
             <Sidebar 
@@ -880,24 +879,108 @@ class Sorter extends Component {
             <div className = "Array">
                 {indexes}
             </div>
-            <Modal display = {this.state.about} header = "About" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
-            <Modal display = {this.state.help} header = "Help" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
-            <Modal display = {this.state.info} header = "Info" paragraph = "Hello" handleModals = {this.handleModals}></Modal>
-            {/* <Modal className = "ModalContainer"></Modal> */}
-            {/* <Array 
-                arrayChange = {this.arrayChange}
-                
-                indexes = {indexes}
-                size = {this.state.size} 
-                direction = {this.state.direction} 
-                shouldShuffle = {this.state.shouldShuffle}
-                // render = {this.state.render}
-            ></Array> */}
+            <Modal display = {this.state.about} header = "About" paragraph = {aboutParagraph} handleModals = {this.handleModals}></Modal>
+            <Modal display = {this.state.help} header = "Help" paragraph = {helpParagraph} handleModals = {this.handleModals}></Modal>
+            <Modal display = {this.state.info} header = "Info" paragraph = {infoParagraph} handleModals = {this.handleModals}></Modal>
         </div>  
       );
     }
 }
+let aboutParagraph = `This is a project developed by Samuel Ko as a tool for practicing the React framework. 
+It showcases the use of React components and JSX syntax to design a webpage.
+The project is designed with the idea of being an interactive learning tool for understanding the concept of sorting, 
+which is a key concept in the study of data structures and algorithms. 
+The selection of algorithms ranges from introductory and novel algorithms such as Bubble Sort and Selection Sort, 
+to more applicable and complicated algorithms like Merge Sort and Quick Sort.
+It is coupled with a UI designed to allow the user to control the characterisitics of the visualization 
+and the initial state of the array. To aid in understanding, real-time statisitics 
+are tracked as the algorithm runs to provide data on the internal efficiency of different algorithms`;
+let helpParagraph = 
+  <p>
+    To use the program, make a selection of settings using the sidebar on the left, click <em>Shuffle</em> to unsort the array, and click <em>Sort</em> to being the visualization.<br></br>
+    Click <em>Randomize</em> to select a random size and direction for the sort. <br></br><br></br>
 
+    <b><em>Algorithm</em></b> <br></br>
+    Select the desired algorithmic process to visualize.<br></br>
+
+    <b><em>Direction</em></b> <br></br>
+    Select the direction that dictates which elements are greater, either ascending (short to tall) or descending (tall to short).<br></br>
+
+    <b><em>Speed</em></b> <br></br>
+    Select the speed of the visualization up to 10x slower or faster.<br></br>
+
+    <b><em>Size</em> </b> <br></br>
+    Select the size of the array to be sorted (larger arrays may cause lag on slower machines as a real algorithm is ran in the background).<br></br>
+
+    <b><em>Distribution</em></b> <br></br>
+    Select the initial distribution of elements of the array upon shuffling.<br></br>
+
+    <b><em>Acesses</em></b> <br></br>
+    Number of times an element in an array is used or called.<br></br>
+
+    <b><em>Comparisons</em></b> <br></br>
+    Number of times two elements are compared for inequality.<br></br>
+
+    <b><em>Moves</em></b> <br></br>
+    Number of times an element needs to be shifted or copied to a different location.<br></br>
+  </p>
+let infoParagraph = 
+  <p>
+    <b><em>Bubble Sort</em></b> <br></br>
+    Starting from the left, each index is compared with the immediate element to the right and swapped if the pair is out of order, bringing the i-th greatest element to the sorted position <br></br>
+
+    <b><em>Cocktail Sort</em></b> <br></br>
+    Also called Bidirectional Bubble Sort since it is essentially Bubble Sort alternating directions. Starting from the left, each index is compared 
+    with the immediate element to the right and swapped if out of order. Then starting from the right, each index is compared with the immediate element 
+    to the left. This pattern alternates until there are no swaps performed in one iteration. <br></br>
+
+    <b><em>Comb Sort</em></b> <br></br>
+    An optimized version of Bubble Sort that includes comparisons that are not immediately adjacent. Comparisons are made across a specified gap, and 
+    the gap decreases oer iteration until it reaches 0, in which case regular Bubble Sort will be performed until the no swaps are made in one iteration. 
+    The gapped iterations help to quickly form a nearly sorted array such that the non-gapped iterations will become more optimized.<br></br>
+
+    <b><em>Selection Sort</em></b> <br></br>
+    Starting from the left, a linear search will be conducted to find the i-th largest element, by keeping track of a current maximum until no more elements 
+    are shown to be greater. At the end of each iteration the maximum element will be placed in the i-th to last position such that the right part of the array
+    will become increasingly sorted per iteration. <br></br>
+
+    <b><em>Insertion Sort</em></b> <br></br>
+    Starting from the left, each index will compare with elements to the left, if an element is found to be less than the current index than the current index
+    will move the position immediately to the right of that element. Since the index is being inserted, all elements to the right of that position myst move to the right. 
+    The array will be split into a tentatively sorted half and a non-sorted half until the entire array has been iterated over. <br></br>
+
+    <b><em>Shell Sort</em></b> <br></br>
+    An optimized version of Insertion Sort that proves to be useful for relatively small data sets under a couple thousand items. Similar to Insertion Sort
+    elements will be compared with elements to left, but comparisons will start with being compared across a gap instead of adjacent items. The gapped iterations will 
+    run over the entire array, and the gap will shrink per iteration. This continues until the gap is 0 returning to normal Insertion Sort. The initial gapped 
+    iterations quickly form a nearly sorted array on which Insertion Sort will be optimized. <br></br>
+
+    <b><em>Merge Sort</em></b> <br></br>
+    Utilizes the concept of a merge function that is able to combine two sorted arrays into one sorted array by comparing the elements between the two arrays. The 
+    smallest element will be selected and stored in an auxilary array until all elements are inserted. This is first applied between sub-arrays of size one which involves
+    a single comparison forming sorted arrays of size two. These sub-arrays of size two are then merged to form sub-arrays of size four. The merged arrays must be 
+    re-inserted into the main array after every merge. This pattern continues until the the main array is finally merged into a single array. The variant shown
+    here is known as iterative bottum-up Merge Sort which sorts all smallest possible sub-arrays before merging them all. The commonly taught recursive top-down
+    Merge Sort applies the same concept except it biases towards merging the largest possible sub-array from the left.<br></br>
+
+    <b><em>Quick Sort</em></b> <br></br>
+    Known as the generally fastest algorithm for large randomly sorted arrays, it utilizes the concept of a partition function that places a single element defined as the pivot
+    into its absolute correct position by placing all lesser elements to the left and all greater elements to the right. The partition function shown here is known 
+    as Lomuto partitioning which involves moving a randomly selected element to the end of the current sub-array, then keeping track of a tentative final pivot 
+    position, while the algorithm searches for an element less than the pivot. If one is found the lesser element is swapped with the current pivot position and the 
+    position moves one to the right. When all elements up to the bounds have been searched the pivot element is swapped into the pivot position. Since only a single element 
+    will be sorted while the two halves remain unsorted, this partition process can be repeated for both halves until sub-arrays of size two or one are reached in which case
+    all elements will be in their final position. The bounds of the halves of the sub-arrays must be stored in a stack either through recursion or an array stack.<br></br>
+
+    <b><em>Heap Sort</em></b> <br></br>
+    Known as the generally most space efficient algorithm while maintaining optimal time complexity, it utlizes the concept of heaps which is based on the concept of a tree where 
+    all child nodes are greater than their parents or all child nodes are lesser than their parents. Heap Sort uses the latter version forming a max heap with 
+    the greatest element on top. The heap can be formed throught iterations of sift-up or sift-down. The variation shown here is sift-down since it is proven to be more efficient.
+    This tree structure can be represented sequentially in arrays by placing the two children of all i-th nodes into the 2i + 1 and 2i + 2 indexes.
+    Since the greatest element will therefore be on the left, we can swap this with the smallest element on the right placing the greatest element in its correct position. The heap 
+    will then need to be corrected after every iteration moving the smallest element back down and the next greatest element to the leftmost position. This is repeated, placing
+    the i-th greatest element in the i-th to last position until the heap is empty and all element are in the correct position.
+  </p>
   
 
 export default Sorter;

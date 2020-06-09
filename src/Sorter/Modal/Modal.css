@@ -7,15 +7,17 @@
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
 }
 
 .content {
-    background-color: white;
+    background-color: rgb(230, 230, 230);
     margin: 10% auto;
     padding: 20px;
     width: 70%;
     border-radius: 10px;
+    border-style: solid;
+    border-color: black;
 }
 
 .close {
